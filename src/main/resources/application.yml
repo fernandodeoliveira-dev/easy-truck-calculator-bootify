@@ -27,6 +27,8 @@ error:
     full-stacktrace-http-statuses: 5xx
     log-levels:
       5xx: ERROR
+    codes:
+      AccountConfigTenantUnique: ACCOUNT_CONFIG_TENANT_UNIQUE
 management:
   endpoints:
     web:

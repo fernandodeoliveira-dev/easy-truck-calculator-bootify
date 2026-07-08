@@ -1,8 +1,10 @@
 package br.com.fdo.easy_truck_calculator.config;
 
 import br.com.fdo.easy_truck_calculator.EasyTruckCalculatorApplication;
+import br.com.fdo.easy_truck_calculator.account_config.AccountConfigRepository;
 import br.com.fdo.easy_truck_calculator.item.ItemRepository;
 import br.com.fdo.easy_truck_calculator.item_category.ItemCategoryRepository;
+import br.com.fdo.easy_truck_calculator.tenant.TenantRepository;
 import br.com.fdo.easy_truck_calculator.unit.UnitRepository;
 import io.restassured.RestAssured;
 import io.restassured.config.JsonConfig;
@@ -58,6 +60,12 @@ public abstract class BaseIT {
 
     @Autowired
     public ItemCategoryRepository itemCategoryRepository;
+
+    @Autowired
+    public AccountConfigRepository accountConfigRepository;
+
+    @Autowired
+    public TenantRepository tenantRepository;
 
     @PostConstruct
     public void initRestAssured() {
