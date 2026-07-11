@@ -4,6 +4,7 @@ import br.com.fdo.easy_truck_calculator.EasyTruckCalculatorApplication;
 import br.com.fdo.easy_truck_calculator.account_config.AccountConfigRepository;
 import br.com.fdo.easy_truck_calculator.item.ItemRepository;
 import br.com.fdo.easy_truck_calculator.item_category.ItemCategoryRepository;
+import br.com.fdo.easy_truck_calculator.pre_set.PreSetRepository;
 import br.com.fdo.easy_truck_calculator.tenant.TenantRepository;
 import br.com.fdo.easy_truck_calculator.unit.UnitRepository;
 import io.restassured.RestAssured;
@@ -66,6 +67,9 @@ public abstract class BaseIT {
 
     @Autowired
     public TenantRepository tenantRepository;
+
+    @Autowired
+    public PreSetRepository preSetRepository;
 
     @PostConstruct
     public void initRestAssured() {

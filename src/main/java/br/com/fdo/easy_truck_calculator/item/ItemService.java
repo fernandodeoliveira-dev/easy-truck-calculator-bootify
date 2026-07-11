@@ -1,28 +1,35 @@
 package br.com.fdo.easy_truck_calculator.item;
 
+import br.com.fdo.easy_truck_calculator.events.BeforeDeleteItem;
 import br.com.fdo.easy_truck_calculator.events.BeforeDeleteItemCategory;
 import br.com.fdo.easy_truck_calculator.item_category.ItemCategoryRepository;
 import br.com.fdo.easy_truck_calculator.util.NotFoundException;
 import br.com.fdo.easy_truck_calculator.util.ReferencedException;
 import java.util.UUID;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class ItemService {
 
     private final ItemRepository itemRepository;
     private final ItemCategoryRepository itemCategoryRepository;
+    private final ApplicationEventPublisher publisher;
     private final ItemMapper itemMapper;
 
     public ItemService(final ItemRepository itemRepository,
-            final ItemCategoryRepository itemCategoryRepository, final ItemMapper itemMapper) {
+            final ItemCategoryRepository itemCategoryRepository,
+            final ApplicationEventPublisher publisher, final ItemMapper itemMapper) {
         this.itemRepository = itemRepository;
         this.itemCategoryRepository = itemCategoryRepository;
+        this.publisher = publisher;
         this.itemMapper = itemMapper;
     }
 
@@ -68,6 +75,7 @@ public class ItemService {
     public void delete(final UUID id) {
         final Item item = itemRepository.findById(id)
                 .orElseThrow(NotFoundException::new);
+        publisher.publishEvent(new BeforeDeleteItem(id));
         itemRepository.delete(item);
     }
 

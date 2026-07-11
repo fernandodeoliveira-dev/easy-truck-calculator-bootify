@@ -1,17 +1,14 @@
-package br.com.fdo.easy_truck_calculator.item;
+package br.com.fdo.easy_truck_calculator.pre_set;
 
-import br.com.fdo.easy_truck_calculator.item_category.ItemCategory;
-import br.com.fdo.easy_truck_calculator.pre_set.PreSet;
+import br.com.fdo.easy_truck_calculator.item.Item;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -28,7 +25,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
-public class Item {
+public class PreSet {
 
     @Id
     @Column(nullable = false, updatable = false)
@@ -36,33 +33,19 @@ public class Item {
     @UuidGenerator
     private UUID id;
 
-    @Column(nullable = false)
+    @Column
     private String name;
 
-    @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal volumeM3;
-
-    @Column(precision = 10, scale = 2)
-    private BigDecimal weightKg;
-
-    @Column(nullable = false)
-    private Boolean stackable;
-
-    @Column(nullable = false)
-    private Boolean fragile;
-
-    @Column(nullable = false)
-    private Boolean heavy;
-
-    @Column(nullable = false)
+    @Column
     private Boolean active;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "item_category_id")
-    private ItemCategory itemCategory;
-
-    @ManyToMany(mappedBy = "items")
-    private Set<PreSet> preSets = new HashSet<>();
+    @ManyToMany
+    @JoinTable(
+            name = "PreSetItem",
+            joinColumns = @JoinColumn(name = "preSetId"),
+            inverseJoinColumns = @JoinColumn(name = "itemId")
+    )
+    private Set<Item> items = new HashSet<>();
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
