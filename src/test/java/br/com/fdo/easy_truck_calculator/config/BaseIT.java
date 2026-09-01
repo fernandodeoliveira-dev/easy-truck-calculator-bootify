@@ -40,7 +40,7 @@ import tools.jackson.databind.ObjectMapper;
 public abstract class BaseIT {
 
     @ServiceConnection
-    private static final PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer("postgres:18.4");
+    private static final PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer("postgres:18.6");
 
     static {
         postgreSQLContainer.withReuse(true)
