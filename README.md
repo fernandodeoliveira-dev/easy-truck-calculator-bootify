@@ -1,6 +1,6 @@
 # Easy Truck Calculator
 
-This app was created with Bootify.io - tips on working with the code [can be found here](https://bootify.io/next-steps/).
+This app was created with [Bootify.io](https://bootify.io/app/F2JZKRND2ZDE) - tips on working with the code [can be found here](https://bootify.io/next-steps/).
 
 ## Development
 

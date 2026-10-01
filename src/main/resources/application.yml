@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: easy-truck-calculator
   datasource:
     url: ${JDBC_DATABASE_URL:jdbc:postgresql://localhost:5432/easy-truck-calculator}
     username: ${JDBC_DATABASE_USERNAME:postgres}
